@@ -1,20 +1,17 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import axios from 'axios'
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+ 
 
 function Fetch() {
     const [loading,setLoading]=useState(true)
@@ -22,11 +19,26 @@ function Fetch() {
     const [post,setPosts]=useState([])
     const [searchTitle,setSearchTitle]=useState("")
     const [open, setOpen] = React.useState(false);
-    
+    const[title,setTitle]=useState('')
+    // const [titleinput,setTitleInput]=useState(title) 
 
-  const handleOpen = () =>{
+   
+
+   const handleChange = (e)=>{
+    setTitle(e.target.value)
+
+   }
+
+  const handleOpen = detail =>{
     setOpen(true);
-    } 
+    setTitle(detail)
+    }
+    
+    const updateComponentValue= ()=>{
+        console.log(title) 
+          
+      }
+
   const handleClose = () => setOpen(false);
 
     useEffect(()=>{
@@ -70,29 +82,37 @@ function Fetch() {
             }
         })
         .map((item) => 
-        <h5 onClick={handleOpen} key={item.id}> {item.title}</h5>
+        <h5 onClick={()=>handleOpen(item.title)} key={item.id}> {item.title}</h5>
         )
         )
         }
-        <Modal
+
+<Dialog
+        
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-          >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {
-            post.map((item)=>
-             item.title
-            )
-            }
-          </Typography>
-         </Box>
-         </Modal> 
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Use Google's location service?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+           <input type="text" defaultValue={title} onChange={handleChange}/>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleClose}>
+            Exit
+          </Button>
+          <Button onClick={updateComponentValue} autoFocus>
+            Edite
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+
+         
         </div>
         );
   
