@@ -1,8 +1,7 @@
-
 import './App.css';
-import React,{useState} from 'react'
+import React, {useState} from 'react'
+import HomePage from './pages/Home';
 import LoginForm from './components/LoginForm';
-import HomePage from './components/HomePage';
 
 function App() {
 
@@ -36,9 +35,7 @@ function App() {
   return (
     <div className='App'>
       {(user.email !== "") ? (
-        <div className='welcome'>
-          <HomePage name={user.name} email={user.email}/>
-        </div>
+          <HomePage name={user.name}/>
       ) : (<LoginForm Login={Login} error={error}/>
 
       )}
