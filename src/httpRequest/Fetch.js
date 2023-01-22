@@ -20,23 +20,25 @@ function Fetch() {
     const [searchTitle,setSearchTitle]=useState("")
     const [open, setOpen] = React.useState(false);
     const[title,setTitle]=useState('')
-    // const [titleinput,setTitleInput]=useState(title) 
+    const [titleinput,setTitleInput]=useState(post) 
 
    
 
    const handleChange = (e)=>{
-    setTitle(e.target.value)
+    setTitleInput(e.target.value)
 
    }
 
-  const handleOpen = detail =>{
+  const handleOpen = (detail )=>{
     setOpen(true);
-    setTitle(detail)
+    setTitleInput(detail)
+    // setTitle(detail)
+
     }
     
     const updateComponentValue= ()=>{
-        console.log(title) 
-          
+        console.log(titleinput) 
+        setOpen(false)    
       }
 
   const handleClose = () => setOpen(false);
@@ -98,7 +100,7 @@ function Fetch() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-           <input type="text" defaultValue={title} onChange={handleChange}/>
+           <input type="text" defaultValue={titleinput} onChange={handleChange}/>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -110,9 +112,6 @@ function Fetch() {
           </Button>
         </DialogActions>
       </Dialog>
-
-
-         
         </div>
         );
   
