@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from '@mui/material/Container';
+import {useSelector} from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,9 +7,11 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 
-export default function PostsList({posts}){
+export default function PostsList() {
+    const posts = useSelector(state => state.posts);
+
     return (
-        <Container sx={{py: 3}}>
+        <>
             <Grid container spacing={2}>
                 {(posts || []).map((post, index) => {
                     return (
@@ -24,13 +26,15 @@ export default function PostsList({posts}){
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{justifyContent: 'flex-end'}}>
-                                    <Button size="small"> Edite </Button>
+                                    <Button size="small">
+                                        Edite
+                                    </Button>
                                 </CardActions>  
                             </Card>
                         </Grid>
                     );
                 })}
         </Grid>
-        </Container> 
-    )
+        </>
+    );
 };
